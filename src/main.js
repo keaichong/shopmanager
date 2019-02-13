@@ -15,7 +15,7 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'   //vue1.0写法
+  template: '<App/>' // vue1.0写法
 })
 // components: { App,App },
-  // template: '<App><App/>'
+// template: '<App><App/>'
