@@ -23,30 +23,65 @@ export default {
       }
     }
   },
+  // methods: {
+  //   handleLogin () {
+  //     this.$http
+  //       .post(`login`, this.formdata)
+  //       .then(res => {
+  //         // console.log(res)
+  //         const {
+  //           data: {
+  //             // data,
+  //             meta: { msg, status }
+  //           }
+  //         } = res
+  //         if (status === 200) {
+  //           this.$router.push({
+  //             // name: 'home'
+  //             path: '/'
+  //           })
+  //         } else {
+  //           // element-ui插件的提示框
+  //           this.$message.error(msg)
+  //           this.formdata.username = ''
+  //           this.formdata.password = ''
+  //         }
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       })
+  //   }
+  // }
   methods: {
-    handleLogin () {
-      this.$http
-        .post(`login`, this.formdata)
-        .then(res => {
-          // console.log(res)
-          const {
-            data: {
-              // data,
-              meta: { msg, status }
-            }
-          } = res
-          if (status === 200) {
-            this.$router.push({
-              name: 'home'
-            })
-          } else {
-            // element-ui插件的提示框
-            this.$message.error(msg)
-          }
+    // 目前代码: 异步操作的结果必须出现.then方法的里面-> 嵌套
+    // 希望: 不想在函数嵌套里面处理res
+    // 需要使用ES7的新特性: async await
+    async handleLogin () {
+      // res 接收异步操作结果
+      const res = await this.$http.post(`login`, this.formdata)
+      console.log(res)
+      const {
+        data: {
+          data: { token },
+          meta: { msg, status }
+        }
+      } = res
+      if (status === 200) {
+        // 把正确的用户的token保存起来
+        // 存值(有三种方式)   html5新增
+        localStorage.setItem('tokenID', token)
+        // 取值(有三种方式)
+        // const aa = localStorage.getItem("tokenID");
+        // console.log(aa);
+        this.$router.push({
+          name: 'home'
         })
-        .catch(err => {
-          console.log(err)
-        })
+      } else {
+        // element-ui插件的提示框
+        this.$message.error(msg)
+        this.formdata.username = ''
+        this.formdata.password = ''
+      }
     }
   }
 }
