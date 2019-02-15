@@ -62,14 +62,14 @@ export default {
       console.log(res)
       const {
         data: {
-          data: { token },
+          data,
           meta: { msg, status }
         }
       } = res
       if (status === 200) {
         // 把正确的用户的token保存起来
         // 存值(有三种方式)   html5新增
-        localStorage.setItem('tokenID', token)
+        localStorage.setItem('token', data.token)
         // 取值(有三种方式)
         // const aa = localStorage.getItem("tokenID");
         // console.log(aa);
@@ -99,7 +99,6 @@ export default {
 .login-form {
   background-color: #ffffff;
   border-radius: 5px;
-  /* 开发 */
   width: 400px;
   padding: 30px;
 }
