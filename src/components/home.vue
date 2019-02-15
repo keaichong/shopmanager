@@ -40,37 +40,21 @@
               <i class="el-icon-location"></i>
               <span>权限管理</span>
             </template>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
             <el-menu-item index="1-1">
               <i class="el-icon-menu"></i>
               <span>角色列表</span>
             </el-menu-item>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
             <el-menu-item index="1-1">
               <i class="el-icon-menu"></i>
               <span>权限列表</span>
             </el-menu-item>
           </el-submenu>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
           <!-- 3 -->
           <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>商品管理</span>
             </template>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
             <el-menu-item index="1-1">
               <i class="el-icon-menu"></i>
               <span>商品列表</span>
@@ -84,39 +68,23 @@
               <span>商品分类</span>
             </el-menu-item>
           </el-submenu>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
           <!-- 4 -->
           <el-submenu index="4">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>订单管理</span>
             </template>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
             <el-menu-item index="1-1">
               <i class="el-icon-menu"></i>
               <span>订单列表</span>
             </el-menu-item>
           </el-submenu>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
           <!-- 5 -->
           <el-submenu index="5">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>数据统计</span>
             </template>
-<<<<<<< HEAD
-=======
-
->>>>>>> dev-login
             <el-menu-item index="1-1">
               <i class="el-icon-menu"></i>
               <span>数据报表</span>
@@ -136,7 +104,6 @@ export default {
       this.$router.push({
         name: 'login'
       })
-<<<<<<< HEAD
       this.$message.warning('请先登陆')
     }
   },
@@ -146,22 +113,6 @@ export default {
       this.$router.push({
         name: 'login'
       })
-=======
-      this.$message.warning('请先登录')
-    }
-  },
-  mounted () {},
-  methods: {
-    // 退出
-    handleLoginout () {
-      // 1. 清除token
-      localStorage.clear()
-      // 2. 来到登录
-      this.$router.push({
-        name: 'login'
-      })
-      // 3. 提示
->>>>>>> dev-login
       this.$message.success('退出成功')
     }
   }
