@@ -59,7 +59,6 @@ export default {
     async handleLogin () {
       // res 接收异步操作结果
       const res = await this.$http.post(`login`, this.formdata)
-      console.log(res)
       const {
         data: {
           data,

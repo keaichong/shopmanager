@@ -10,13 +10,16 @@
       <el-col>
         <!-- 搜索框 -->
         <el-input
-         @clear="getAllUsers()" 
-         clearable
-        placeholder="请输入内容" v-model="query" class="searchInput">
+          @clear="getAllUsers()"
+          clearable
+          placeholder="请输入内容"
+          v-model="query"
+          class="searchInput"
+        >
           <el-button slot="append" icon="el-icon-search" @click="searchUser()"></el-button>
         </el-input>
         <!-- 添加按钮 -->
-        <el-button type="success">添加用户</el-button>
+        <el-button type="success" @click="showDiaAddUser()">添加用户</el-button>
       </el-col>
     </el-row>
     <!-- 表格 -->
@@ -71,6 +74,28 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
     ></el-pagination>
+    <!-- 对话框 -添加用户-->
+    <el-dialog title="添加用户" :visible.sync="dialogFormVisibleAdd">
+      <!-- 表单 -->
+      <el-form label-position="left" label-width="80px" :model="formdata">
+        <el-form-item label="用户名">
+          <el-input v-model="formdata.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="formdata.password"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="formdata.email"></el-input>
+        </el-form-item>
+        <el-form-item label="电话">
+          <el-input v-model="formdata.mobile"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisibleAdd = false">取 消</el-button>
+        <el-button type="primary" @click="addUser()">确 定</el-button>
+      </div>
+    </el-dialog>
   </el-card>
 </template>
  
@@ -82,7 +107,16 @@ export default {
       list: [],
       pagenum: 1,
       pagesize: 3,
-      total: -1
+      total: -1,
+     //添加按钮 对话框默认显示状态
+      dialogFormVisibleAdd: false,
+    // 表单数据-> 将来发送post请求->请求体->
+      formdata: {
+        username: "",
+        password: "",
+        email: "",
+        mobile: ""
+      }
     };
   },
   // 获取首屏数据的方法调用
@@ -99,13 +133,39 @@ export default {
       return "";
     },
     // 搜索框清空时候获取所有用户
-    getAllUsers(){
-            this.getTableData();
+    getAllUsers() {
+      this.getTableData();
     },
     // 搜索用户  当点击按钮会把query的数据放入 url中的query 后台根据query进行模糊查询 重新渲染页面
-    searchUser(){
-        this.pagenum=1
+    searchUser() {
+      this.pagenum = 1;
+      this.getTableData();
+    },
+    // 添加用户对话框状态
+    showDiaAddUser() {
+         this.dialogFormVisibleAdd = true 
+    },
+    async addUser () {
+      this.$http.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+      const res = await this.$http.post('users', this.formdata)
+      console.log(res)
+      const data = res.data
+      const { meta: { status, msg } } = data
+      if (status === 201) {
+        // 添加成功
+        // 隐藏对话框
+       this.dialogFormVisibleAdd = false
+        // 提示成功
+        this.$message.success(msg)
+        // 重新加载数据
         this.getTableData()
+        // 清空文本输入框的值
+        for (const key in this.formdata) {
+          this.formdata[key] = ''
+        }
+      } else {
+        this.$message.error(msg)
+      }
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
