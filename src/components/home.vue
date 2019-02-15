@@ -187,11 +187,8 @@ export default {
 .logout {
   line-height: 60px;
   text-decoration: none;
-<<<<<<< HEAD
 }
 .el-menu-vertical-demo{
-    height: 100%;
-=======
->>>>>>> dev-login
+    height: 100%; 
 }
 </style>
