@@ -27,11 +27,13 @@
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
+
+            <el-menu-item index="users">
               <i class="el-icon-menu"></i>
-              用户列表
+              <span>用户列表</span>
             </el-menu-item>
           </el-submenu>
+
           <!-- 2 -->
           <el-submenu index="2">
             <template slot="title">
@@ -97,24 +99,24 @@
 
 <script>
 export default {
-  beforeMount() {
-    if (!localStorage.getItem("token")) {
+  beforeMount () {
+    if (!localStorage.getItem('token')) {
       this.$router.push({
-        name: "login"
+        name: 'login'
       })
-      this.$message.warning("请先登陆");
+      this.$message.warning('请先登陆')
     }
   },
   methods: {
-      handleLoginout(){
-        localStorage.clear()
-        this.$router.push({
-        name: "login"
+    handleLoginout () {
+      localStorage.clear()
+      this.$router.push({
+        name: 'login'
       })
-      this.$message.success("退出成功");
-      }
+      this.$message.success('退出成功')
+    }
   }
-};
+}
 </script>
 
 <style>
