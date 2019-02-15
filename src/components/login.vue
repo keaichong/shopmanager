@@ -63,7 +63,7 @@ export default {
       const {
         data: {
           data,
-          meta: { msg, status }
+          meta: {msg, status }
         }
       } = res
       if (status === 200) {
