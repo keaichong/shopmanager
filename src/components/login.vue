@@ -3,7 +3,7 @@
     <el-form class="login-form" label-position="top" label-width="80px" :model="formdata">
       <h2>用户登录</h2>
       <el-form-item label="用户名">
-        <el-input v-model="formdata.username"></el-input>
+        <el-input v-focus v-model="formdata.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
         <el-input v-model="formdata.password"></el-input>
@@ -62,14 +62,14 @@ export default {
       console.log(res)
       const {
         data: {
-          data: { token },
+          data,
           meta: { msg, status }
         }
       } = res
       if (status === 200) {
         // 把正确的用户的token保存起来
         // 存值(有三种方式)   html5新增
-        localStorage.setItem('tokenID', token)
+        localStorage.setItem('token', data.token)
         // 取值(有三种方式)
         // const aa = localStorage.getItem("tokenID");
         // console.log(aa);
