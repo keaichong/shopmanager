@@ -9,18 +9,8 @@
       ref="formdata"
     >
       <h2>用户登录</h2>
-<<<<<<< HEAD
       <el-form-item label="用户名">
         <el-input v-focus v-model="formdata.username"></el-input>
-=======
-      <el-form-item
-        label="用户名"
-        prop="username"
-        :rules="[
-      { required: true, message: '用户名不能为空', trigger: 'blur'}]"
-      >
-        <el-input autofocus v-model="formdata.username" ></el-input>
->>>>>>> dev-users
       </el-form-item>
       <el-form-item
         label="密码"
@@ -93,11 +83,7 @@ export default {
       if (status === 200) {
         // 把正确的用户的token保存起来
         // 存值(有三种方式)   html5新增
-<<<<<<< HEAD
         localStorage.setItem('token', data.token)
-=======
-        localStorage.setItem("token", data.token);
->>>>>>> dev-users
         // 取值(有三种方式)
         // const aa = localStorage.getItem("tokenID");
         // console.log(aa);

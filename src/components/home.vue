@@ -98,7 +98,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 export default {
   beforeMount () {
     if (!localStorage.getItem('token')) {
@@ -118,9 +117,6 @@ export default {
     }
   }
 }
-=======
-export default {}
->>>>>>> dev-users
 </script>
 
 <style>
