@@ -65,7 +65,7 @@ export default {}
         <el-menu
           :unique-opened="true"
           :router="true"
-          default-active="2"
+          default-active="1"
           class="el-menu-vertical-demo"
         >
           <!-- 1 -->
