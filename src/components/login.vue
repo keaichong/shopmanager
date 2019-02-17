@@ -83,7 +83,7 @@ export default {
           meta: { msg, status }
         }
       } = res;
-      console.log(res);
+      // console.log(res);
       
       if (status === 200) {
         // 把正确的用户的token保存起来

@@ -191,7 +191,7 @@ export default {
       }
     };
   },
-  // 获取首屏数据的方法调用
+  // 获取首屏数据的方法调用(在这里面调用发放时候已经设置了头部令牌,所以后续请求可以不用在设置头部)
   created() {
     this.getTableData();
   },
@@ -317,9 +317,7 @@ export default {
     },
     //增加用户
     async addUser() {
-      this.$http.defaults.headers.common[
-        "Authorization"
-      ] = localStorage.getItem("token");
+   
       const res = await this.$http.post("users", this.formdata);
       //   console.log(res)
       const data = res.data;
@@ -357,8 +355,6 @@ export default {
     },
     // 展示用户
     async getTableData() {
-      const AUTH_TOKEN = localStorage.getItem("token");
-      this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${
           this.pagesize
