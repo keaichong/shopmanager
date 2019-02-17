@@ -285,7 +285,7 @@ export default {
           this.$message.info("取消删除");
         });
     },
-    //   修改用户状态
+    //   修改用户状态(决定用户是否有权限进行登陆)
     async changeState(user) {
       const res = await this.$http.put(
         `users/${user.id}/state/${user.mg_state}`
