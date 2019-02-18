@@ -1,6 +1,6 @@
 <template>
   <el-card class="box">
-    <bread-crumb title1="权限管理" title2="权限列表"></bread-crumb>
+    <bread-crumb :title1="title" title2="权限列表"></bread-crumb>
   </el-card>
 </template>
 
@@ -8,7 +8,8 @@
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      title:"权限管理"
     };
   },
   //权限列表展示
