@@ -16,11 +16,15 @@ HttpServer.install = function (Vue) {
     // 当请求标识不是login,先设置头部,再发送请求
     if (config.url !== "login") {
       const AUTH_TOKEN = localStorage.getItem("token");
+      //加引号代表属性 不加是变量
       // axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
       //headers也是一个对象
-      config.headers["Authorization"] = AUTH_TOKEN;
+    //   config.headers["Authorization"] = AUTH_TOKEN;
+      config.headers.Authorization = AUTH_TOKEN;
       // var per = {};
       // per["Authorization"] = "token";
+      console.log(config);
+      
     }
     return config;
   }, function (error) {
