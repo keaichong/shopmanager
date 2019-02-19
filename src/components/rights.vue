@@ -38,7 +38,7 @@ export default {
       } = res.data;
       if (status === 200) {
         this.list = data;
-        console.log(data);
+        // console.log(data);
       }
     }
   }

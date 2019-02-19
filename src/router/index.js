@@ -1,3 +1,6 @@
+import {
+  Message
+} from 'element-ui';
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/login'
@@ -8,7 +11,7 @@ import Roles from '@/components/roles'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [{
       path: '/',
       name: 'home',
@@ -37,3 +40,30 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+      // 如果要去的是login -> next()
+      if (to.name === 'login') {
+        next();
+      } else {
+        // 如果要去的不是login ->
+        //  2.1 !token -> 去登录
+        const token = localStorage.getItem("token");
+        if (!token) {
+          //提示
+          // this.$message.warning("请先登录!");->
+          Message.warning("请先登录!");
+
+          //  this.$router.push({name:'login'})
+          // $router
+          router.push({
+            name: 'login'
+          })
+          return;
+        }
+        //  2.2 token  -> next()
+        next();
+      }
+      })
+
+      export default router; 
