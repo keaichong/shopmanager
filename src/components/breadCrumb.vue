@@ -26,7 +26,7 @@ export default {
   // 6. props中的数据将来就是组件的属性->也就是自定义标签的属性 <abc level1=?></abc>
   // 7. props中的数据将来使用组件时通过属性进行赋值<abc level1="权限列表"></abc>
 
-  props: ["title1", "title2"]
+  props: ["title1", "title2",]
 };
 </script>
 

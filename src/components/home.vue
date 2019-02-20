@@ -72,7 +72,6 @@ export default {
       // laowang38登录->保存了后台返回的laowang38的超级管理员角色的token
 
       const res = await this.$http.get(`menus`);
-      console.log(res.data);
       const {
         meta: { msg, status },
         data
