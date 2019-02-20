@@ -60,7 +60,6 @@
               action="http://localhost:8888/api/private/v1/upload"
               :on-remove="handleRemove"
               :on-success="handleSuccess"
-              :file-list="fileList"
               list-type="picture"
             >
               <el-button size="small" type="primary">点击上传</el-button>
@@ -69,9 +68,10 @@
         </el-tab-pane>
         <el-tab-pane label="商品内容" name="5">
           <el-form-item>
-            <el-button @click="addGoods()">添加商品</el-button>
             <!-- 富文本 -->
             <quill-editor v-model="form.goods_introduce"></quill-editor>
+            
+            <el-button @click="addGoods()">添加商品</el-button>
           </el-form-item>
         </el-tab-pane>
       </el-tabs>
@@ -162,7 +162,7 @@ export default {
           name: "goods"
         });
       } else {
-        this.$message.success(msg);
+        this.$message.warning(msg);
       }
     },
     // 图片上传方法

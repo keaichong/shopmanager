@@ -12,7 +12,7 @@
           v-model="query"
           class="searchInput"
         >
-          <el-button slot="append" icon="el-icon-search" @click="searchUser()"></el-button>
+          <el-button slot="append" icon="el-icon-search" @click="searchGoods()"></el-button>
         </el-input>
         <!-- 添加按钮  $router  是路由的实例化对象 -->
         <el-button type="success" @click="$router.push({name:'goodsadd'})">添加用户</el-button>
@@ -80,6 +80,16 @@ export default {
     this.getTableData();
   },
   methods: {
+    //点击搜索搜索商品
+    searchGoods() {
+      this.pagenum = 1;
+      this.getTableData();
+    },
+    // 搜索框清空时候获取所有用户
+    getAllUsers() {
+      this.getTableData();
+    },
+    //获取商品数据
     async getTableData() {
       const res = await this.$http.get(
         `goods?query=${this.query}&pagenum=${this.pagenum}&pagesize=${
@@ -116,9 +126,8 @@ export default {
         .then(async () => {
           // console.log(goods);goods_id
           const res = await this.$http.delete(`goods/${goods.goods_id}`);
-          console.log(res
-          );
-          
+          console.log(res);
+
           const {
             meta: { msg, status }
           } = res.data;

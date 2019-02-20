@@ -10,6 +10,7 @@ import Rights from '@/components/rights'
 import Roles from '@/components/roles'
 import Goods from '@/components/goods'
 import Goodsadd from '@/components/goodsadd'
+import Params from '@/components/params'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ const router = new Router({
           name: 'goodsadd',
           path: '/goodsadd',
           component: Goodsadd
+        },
+        {
+          name: 'params',
+          path: '/params',
+          component: Params
         }
       ]
     },
@@ -53,29 +59,32 @@ const router = new Router({
   ]
 })
 
+//路由守卫
 router.beforeEach((to, from, next) => {
-      // 如果要去的是login -> next()
-      if (to.name === 'login') {
-        next();
-      } else {
-        // 如果要去的不是login ->
-        //  2.1 !token -> 去登录
-        const token = localStorage.getItem("token");
-        if (!token) {
-          //提示
-          // this.$message.warning("请先登录!");->
-          Message.warning("请先登录!");
+  // 如果要去的是login -> next()
+  if (to.name === 'login') {
+    next();
+  } else {
+    // 如果要去的不是login ->
+    //  2.1 !token -> 去登录
+    const token = localStorage.getItem("token");
+    if (!token) {
+      //提示
+      // this.$message.warning("请先登录!");->
+      Message.warning("请先登录!");
 
-          //  this.$router.push({name:'login'})
-          // $router
-          router.push({
-            name: 'login'
-          })
-          return;
-        }
-        //  2.2 token  -> next()
-        next();
-      }
+      //  this.$router.push({name:'login'})
+      // $router
+      router.push({
+        name: 'login'
       })
+      return;
+    }
+    //  2.2 token  -> next()
+    next();
+  }
+})
 
-      export default router; 
+
+
+export default router;
