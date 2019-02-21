@@ -19,7 +19,7 @@
       </el-col>
     </el-row>
     <!-- 表格 -->
-    <el-table height="500px" :data="list" style="width: 100%">
+    <el-table class="table" height="500px" :data="list" style="width: 100%">
       <el-table-column type="index" label="#" width="80"></el-table-column>
       <el-table-column prop="goods_name" label="商品名称" width="700"></el-table-column>
       <el-table-column prop="goods_price" label="商品价格" width="100"></el-table-column>
@@ -31,7 +31,7 @@
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button
-            @click="showDiaEditUser(scope.row)"
+            @click="showDiaEditGoods(scope.row)"
             type="primary"
             icon="el-icon-edit"
             circle
@@ -61,6 +61,27 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
     ></el-pagination>
+    <!-- 对话框 编辑 -->
+    <el-dialog title="编辑商品" :visible.sync="dialogFormVisibleEdit">
+      <el-form label-position="left" label-width="80px" :model="formdata">
+        <el-form-item label="商品名称">
+          <el-input v-model="formdata.goods_name" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="价格">
+          <el-input v-model="formdata.goods_price"></el-input>
+        </el-form-item>
+        <el-form-item label="数量">
+          <el-input v-model="formdata.goods_number"></el-input>
+        </el-form-item>
+        <el-form-item label="重量">
+          <el-input v-model="formdata.goods_weight"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancelEdit">取 消</el-button>
+        <el-button type="primary" @click="editGoods()">确 定</el-button>
+      </div>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -73,13 +94,55 @@ export default {
       total: -1,
       //默认页码和展示条数
       pagenum: 1,
-      pagesize: 10
+      pagesize: 10,
+      dialogFormVisibleEdit: false,
+      formdata: {
+        goods_id: "",
+        goods_name: "",
+        goods_price: "",
+        goods_number: "",
+        goods_weight: "",
+        goods_introduce: "",
+        pics: [],
+        attrs: []
+      }
     };
   },
   created() {
     this.getTableData();
   },
   methods: {
+    //取消编辑
+    cancelEdit() {
+      this.dialogFormVisibleEdit = false;
+       // 刷新表格
+      this.getTableData();
+    },
+    // 发送编辑请求
+    async editGoods(){
+       const res = await this.$http.put(
+        `goods/${this.formdata.goods_id}`,
+        this.formdata
+      );
+      // console.log(res);
+      const {
+        data,
+        meta: { msg, status }
+      } = res.data;
+      console.log(res);//要设置所属分类
+       if (status === 200) {
+        // 关闭
+        this.dialogFormVisibleEdit = false;
+        // 更新表格
+        this.getTableData();
+      }
+      
+    },
+    //展示编辑对话框
+    showDiaEditGoods(goods) {
+      this.formdata = goods;
+      this.dialogFormVisibleEdit = true;
+    },
     //点击搜索搜索商品
     searchGoods() {
       this.pagenum = 1;
@@ -103,6 +166,8 @@ export default {
       if (status === 200) {
         this.total = data.total;
         this.list = data.goods;
+        console.log(data);
+        
       }
     },
     //每页条数
@@ -153,7 +218,10 @@ export default {
   height: 100%;
 }
 .searchInput {
-  width: 350px;
+  width:350px;
+}
+.table{
+  width: 100%;
 }
 .seartBox {
   margin-top: 20px;

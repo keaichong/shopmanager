@@ -48,7 +48,7 @@ HttpServer.install = function (Vue) {
         }
       }
     } = response
-    if (status !== '200' || status !== '201') {
+    if (status !== 200 && status !== 201) {
       Message.error(msg)
     }
 

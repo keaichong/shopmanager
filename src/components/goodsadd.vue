@@ -53,6 +53,7 @@
             <el-input v-model="item.attr_vals"></el-input>
           </el-form-item>
         </el-tab-pane>
+
         <el-tab-pane label="商品图片" name="4 ">
           <el-form-item>
             <el-upload
@@ -61,16 +62,18 @@
               :on-remove="handleRemove"
               :on-success="handleSuccess"
               list-type="picture"
+              :file-list="fileList"
             >
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
           </el-form-item>
         </el-tab-pane>
+
         <el-tab-pane label="商品内容" name="5">
           <el-form-item>
             <!-- 富文本 -->
             <quill-editor v-model="form.goods_introduce"></quill-editor>
-            
+
             <el-button @click="addGoods()">添加商品</el-button>
           </el-form-item>
         </el-tab-pane>
@@ -91,7 +94,14 @@ export default {
   },
   data() {
     return {
-      fileList: [],
+      // 默认展示图片列表
+      fileList: [
+        {
+          name: "food.jpeg",
+          url:
+            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        }
+      ],
       // 默认1
       active: "1",
       form: {},
@@ -161,24 +171,22 @@ export default {
         this.$router.push({
           name: "goods"
         });
-      } else {
-        this.$message.warning(msg);
       }
     },
     // 图片上传方法
     handleRemove(file, fileList) {
       // 删除图片 从数组中
       const Index = this.form.pics.findIndex(item => {
-        //如果遍历数组图片的临时路径=>当item这一项图片临时路径等于移除图片的该路径
+        //如果遍历数组图片的临时路径=>当item这一项图片临时路径等于移除图片的路径 findindex返回索引
         return item.pic === file.response.data.tmp_path;
       });
       this.form.pics.splice(Index, 1);
     },
     handleSuccess(response, file, fileList) {
       console.log(response);
-      //      this.form.pics.push({
-      pic: response.data.tmp_path;
-      //   });
+      this.form.pics.push({
+        pic: response.data.tmp_path
+      });
     },
     //点击tab时候触发
     async changeTab() {

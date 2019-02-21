@@ -11,6 +11,7 @@ import Roles from '@/components/roles'
 import Goods from '@/components/goods'
 import Goodsadd from '@/components/goodsadd'
 import Params from '@/components/params'
+import Categories from '@/components/goodscate'
 
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ const router = new Router({
           name: 'params',
           path: '/params',
           component: Params
+        },
+        {
+          name: 'categories',
+          path: '/categories',
+          component: Categories
         }
       ]
     },
