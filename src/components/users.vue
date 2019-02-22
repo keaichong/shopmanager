@@ -195,6 +195,17 @@ export default {
   created() {
     this.getTableData();
   },
+  // 组建内守卫
+  beforeRouteLeave(to, from, next) {
+    if (to.name !== 'users') {
+        const answer = window.alert(
+      "当前页面没有保存"
+    );
+      next();
+    } else {
+      next(false);
+    }
+  },
   methods: {
     //   分配角色 接口 确定发送请求 进行角色修改
     async setRole() {
@@ -317,7 +328,6 @@ export default {
     },
     //增加用户
     async addUser() {
-   
       const res = await this.$http.post("users", this.formdata);
       //   console.log(res)
       const data = res.data;

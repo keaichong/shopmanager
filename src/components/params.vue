@@ -12,12 +12,12 @@
       :closable="false"
     ></el-alert>
 
-    <el-form :model="form" class="form" label-position="left" label-width="120px">
+    <el-form :model="form"  label-position="left" label-width="120px">
       <el-form-item label="请选择商品分类">
         <!--  级联选择selectedOptions装的是data里面的value 当selectedOptions和value一样 显示label值
          value	指定选项的值为选项对象的某个属性值
         label	指定选项标签为选项对象的某个属性值
-        options就是选项对象-->
+        options就是选项对象 -->
         <el-cascader
           :options="options"
           v-model="selectedOptions"
@@ -131,7 +131,7 @@ export default {
       );
     },
 
-    //input输入框 $nextTick和mounted 类似 mouted不会承诺所有子组件都被加载
+    //input输入框 $nextTick和mounted   类似   mouted不会承诺所有子组件都被加载
     showInput() {
       this.inputVisible = true;
       this.$nextTick(_ => {

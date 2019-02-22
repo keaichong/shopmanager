@@ -15,7 +15,7 @@
           <el-button slot="append" icon="el-icon-search" @click="searchGoods()"></el-button>
         </el-input>
         <!-- 添加按钮  $router  是路由的实例化对象 -->
-        <el-button type="success" @click="$router.push({name:'goodsadd'})">添加用户</el-button>
+        <el-button type="success" @click="$router.push({name:'goodsadd'})">添加商品</el-button>
       </el-col>
     </el-row>
     <!-- 表格 -->

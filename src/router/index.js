@@ -57,6 +57,16 @@ const router = new Router({
           name: 'categories',
           path: '/categories',
           component: Categories
+        },
+        {
+          name: 'orders',
+          path: '/orders',
+          component: Order
+        },
+        {
+          name: 'reports',
+          path: '/reports',
+          component: Reports
         }
       ]
     },
@@ -112,7 +122,7 @@ router.beforeEach((to, from, next) => {
       //提示
       // this.$message.warning("请先登录!");->
       Message.warning("请先登录!");
-
+      console.log('我没有token');
       //  this.$router.push({name:'login'})
       // $router
       router.push({
@@ -124,7 +134,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 })
-
-
 
 export default router;
