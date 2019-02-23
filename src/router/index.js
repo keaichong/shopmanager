@@ -1,21 +1,11 @@
 // ????
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
+// 这个 不能用cdn
 import {
   Message
 } from 'element-ui';
-// import Login from '@/components/login'
-// import Home from '@/components/home'
-// import Users from '@/components/users'
-// import Rights from '@/components/rights'
-// import Roles from '@/components/roles'
-// import Goods from '@/components/goods'
-// import Goodsadd from '@/components/goodsadd'
-// import Params from '@/components/params'
-// import Categories from '@/components/goodscate'
-// import Order from '@/components/order'
-// import Reports from '@/components/reports'
-// vue he  router不需要修改 只需要该自己组件
+
 const Login = () => import('@/components/login.vue')
 
 const Home = () => import('@/components/home.vue')
@@ -146,11 +136,12 @@ router.beforeEach((to, from, next) => {
     const token = localStorage.getItem("token");
     if (!token) {
       //提示
-      // this.$message.warning("请先登录!");->
+      // this.$message.warning("请先登录!");
       Message.warning("请先登录!");
       console.log('我没有token');
       //  this.$router.push({name:'login'})
-      // $router
+      // $router 
+      // router 就是上面const router   是router 的实例化对象
       router.push({
         name: 'login'
       })

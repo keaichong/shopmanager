@@ -1,13 +1,13 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has  been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import ELEMENT from 'element-ui'
+// import Vue from 'vue'
+// import ELEMENT from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/base.css'
 import App from './App'
 import HttpServer from '@/http.js'
 import router from './router'
-import moment from 'moment'
+// import moment from 'moment'
 import BreadCrumb from '@/components/breadCrumb.vue'
 
 // Vue.use()是使用vue插件的用法
