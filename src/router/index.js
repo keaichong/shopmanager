@@ -1,24 +1,49 @@
+import Vue from 'vue'
+// import VueRouter from 'vue-router'
 import {
   Message
 } from 'element-ui';
-import Vue from 'vue'
-import Router from 'vue-router'
-import Login from '@/components/login'
-import Home from '@/components/home'
-import Users from '@/components/users'
-import Rights from '@/components/rights'
-import Roles from '@/components/roles'
-import Goods from '@/components/goods'
-import Goodsadd from '@/components/goodsadd'
-import Params from '@/components/params'
-import Categories from '@/components/goodscate'
-import Order from '@/components/order'
-import Reports from '@/components/reports'
+// import Login from '@/components/login'
+// import Home from '@/components/home'
+// import Users from '@/components/users'
+// import Rights from '@/components/rights'
+// import Roles from '@/components/roles'
+// import Goods from '@/components/goods'
+// import Goodsadd from '@/components/goodsadd'
+// import Params from '@/components/params'
+// import Categories from '@/components/goodscate'
+// import Order from '@/components/order'
+// import Reports from '@/components/reports'
+// vue he  router不需要修改 只需要该自己组件
+const Login = () => import('@/components/login.vue')
 
-Vue.use(Router)
+const Home = () => import('@/components/home.vue')
+
+const Users = () => import('@/components/users.vue')
+
+const Rights = () => import('@/components/rights.vue')
+
+const Roles = () => import('@/components/roles.vue')
+
+const Goods = () => import('@/components/goods.vue')
+
+const Goodsadd = () => import('@/components/goodsadd.vue')
+
+const Params = () => import('@/components/params.vue')
+
+const Categories = () => import('@/components/goodscate.vue')
+
+const Order = () => import('@/components/order.vue')
+
+const Reports = () => import('@/components/reports.vue')
 
 
-const router = new Router({
+
+
+Vue.use(VueRouter)
+
+
+const router = new VueRouter({
   routes: [{
       path: '/',
       name: 'home',
@@ -125,7 +150,7 @@ router.beforeEach((to, from, next) => {
       console.log('我没有token');
       //  this.$router.push({name:'login'})
       // $router
-      router.push({
+      this.$router.push({
         name: 'login'
       })
       return;

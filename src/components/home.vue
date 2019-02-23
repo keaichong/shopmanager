@@ -17,9 +17,10 @@
     <el-container>
       <el-aside class="aside" width="200px">
         <el-menu
+          @select="fn"
           :unique-opened="true"
           :router="true"
-          default-active="1"
+          :default-active="$route.name"
           class="el-menu-vertical-demo"
         >
           <!-- 1 -->
@@ -29,11 +30,7 @@
               <span>{{item1.authName}}</span>
             </template>
 
-            <el-menu-item
-              :index="item2.path+''"
-              v-for="item2 in item1.children"
-              :key="item2.id"
-            >
+            <el-menu-item :index="item2.path+''" v-for="item2 in item1.children" :key="item2.id">
               <i class="el-icon-menu"></i>
               <span>{{item2.authName}}</span>
             </el-menu-item>
@@ -66,6 +63,15 @@ export default {
     this.getMenus();
   },
   methods: {
+        fn(index, indexPath) {
+      // this.$route.params.abc = index;
+      console.log(index);//users
+      console.log(indexPath); //[1,users]
+      //
+      // 获取当前点击的路由数据
+      console.log(this.$route);
+      console.log(this.$route.name);
+    },
     // 动态导航
     async getMenus() {
       // admin登录 -> 保存了后台返回的admin的主管角色的token
@@ -91,7 +97,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   height: 100%;
   background-color: #b3c0d1;

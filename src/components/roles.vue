@@ -3,7 +3,7 @@
     <bread-crumb title1="权限管理" title2="角色列表"></bread-crumb>
     <el-button class="btn" type="primary">添加角色</el-button>
     <!-- 表格 -->
-    <el-table height="500px" :data="roles" style="width: 100%">
+    <el-table height="500px" :data="roles" style="width: 100%" @expand-change="fn">
       <!-- expand 设置一个可以展开的按钮 -->
       <el-table-column type="expand" width="50">
         <template slot-scope="scope">
@@ -104,6 +104,11 @@ export default {
     this.getRoles();
   },
   methods: {
+    fn(row, expandedRows) {
+      if (expandedRows.length > 1) {
+        expandedRows.shift();
+      }
+    },
     // 分配权限-确定按钮 发送请求
     async setRights() {
       //获取选中的节点发送请求进行数据修改
@@ -112,9 +117,9 @@ export default {
       // 获取半选节点id element-ui文档 -> getHalfCheckedKeys
       const arr2 = this.$refs.tree.getHalfCheckedKeys();
       const arr = [...arr1, ...arr2];
-    //   console.log(arr);
-    //   arr.join(",");
-    //   console.log(arr);
+      //   console.log(arr);
+      //   arr.join(",");
+      //   console.log(arr);
       const res = await this.$http.post(`roles/${this.currRoleId}/rights`, {
         rids: arr.join(",")
       });
@@ -128,68 +133,68 @@ export default {
       }
     },
 
-  //展示分配权限对话框 roles 角色列表第一层为角色信息 第二层开始为权限说明，权限一共有 3 层权限 role是当前角色第二层
-  async showDiaSetRights(role) {
-    //打开对话框时候保存当前角色id 用于之后发送修改权限请求
-    this.currRoleId = role.id;
-    // 获取数据
-    const res = await this.$http.get(`rights/tree`);
-    const {
-      meta: { msg, status },
-      data
-    } = res.data;
-    if (status === 200) {
-      //显示树状列表
-      this.treelist = data;
-      //给对应角色列表选中已有的权限
-      const temp2 = [];
-      role.children.forEach(item1 => {
-        item1.children.forEach(item2 => {
-          item2.children.forEach(item3 => {
-            temp2.push(item3.id);
+    //展示分配权限对话框 roles 角色列表第一层为角色信息 第二层开始为权限说明，权限一共有 3 层权限 role是当前角色第二层
+    async showDiaSetRights(role) {
+      //打开对话框时候保存当前角色id 用于之后发送修改权限请求
+      this.currRoleId = role.id;
+      // 获取数据
+      const res = await this.$http.get(`rights/tree`);
+      const {
+        meta: { msg, status },
+        data
+      } = res.data;
+      if (status === 200) {
+        //显示树状列表
+        this.treelist = data;
+        //给对应角色列表选中已有的权限
+        const temp2 = [];
+        role.children.forEach(item1 => {
+          item1.children.forEach(item2 => {
+            item2.children.forEach(item3 => {
+              temp2.push(item3.id);
+            });
           });
         });
-      });
-      this.arrCheck = temp2;
-    }
-    this.dialogFormVisible = true;
-  },
-  //
-  //删除权限
-  async deleRights(roles, rights) {
-    const res = await this.$http.delete(
-      `roles/${roles.id}/rights/${rights.id}`
-    );
-    const {
-      meta: { msg, status },
-      data
-    } = res.data;
-    if (status === 200) {
-      // 提示
-      this.$message.success(msg);
-      // 更新
-      // this.getRoles();
-      // 响应会返回当前角色的剩余权限
-      // 只更新当前的角色权限
-      roles.children = data;
-    }
-  },
-  //表格展示权限列表
-  async getRoles() {
-    const res = await this.$http.get(`roles`);
-    const {
-      meta: { msg, status },
-      data
-    } = res.data;
-    if (status === 200) {
-      this.roles = data;
+        this.arrCheck = temp2;
+      }
+      this.dialogFormVisible = true;
+    },
+    //
+    //删除权限
+    async deleRights(roles, rights) {
+      const res = await this.$http.delete(
+        `roles/${roles.id}/rights/${rights.id}`
+      );
+      const {
+        meta: { msg, status },
+        data
+      } = res.data;
+      if (status === 200) {
+        // 提示
+        this.$message.success(msg);
+        // 更新
+        // this.getRoles();
+        // 响应会返回当前角色的剩余权限
+        // 只更新当前的角色权限
+        roles.children = data;
+      }
+    },
+    //表格展示权限列表
+    async getRoles() {
+      const res = await this.$http.get(`roles`);
+      const {
+        meta: { msg, status },
+        data
+      } = res.data;
+      if (status === 200) {
+        this.roles = data;
+      }
     }
   }
-}
-}
+};
 </script>
 
-<style>
+<style scoped>
 .box {
   height: 100%;
 }

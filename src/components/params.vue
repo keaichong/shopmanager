@@ -34,7 +34,7 @@
       <el-tab-pane name="1" label="动态参数">
         <el-button>添加动态参数</el-button>
         <!-- type	对应列的类型。如果设置了 selection 则显示多选框；如果设置了 index 则显示该行的索引（从 1 开始计算）；如果设置了 expand 则显示为一个可展开的按钮 -->
-        <el-table height="450px" border stripe :data="arrDy" style="width: 100%">
+        <el-table height="450px" border stripe :data="arrDy" style="width: 100%" @expand-change="fn">
           <el-table-column type="expand" width="120">
             <template slot-scope="scope">
               <!-- 动态tag编辑 -->
@@ -114,6 +114,11 @@ export default {
     this.getData();
   },
   methods: {
+    fn(row, expandedRows) {
+      if (expandedRows.length > 1) {
+        expandedRows.shift();
+      }
+    },
     //关闭tags
     async handleClose(obj, item) {
       //从数组中删除这个tags
@@ -229,7 +234,7 @@ export default {
 // 3.tab切换加载静态参数
 </script>
 
-<style>
+<style scoped>
 .box {
   height: 100%;
 }

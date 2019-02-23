@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -20,6 +20,19 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
+  externals: {
+    // jquery: 'jQuery'
+
+    // key->js的包名->package.json
+    // value->该包暴露给全局作用域内的变量名
+    //之所以变量名加引号是因为有些变量名有短横线 所以统一加引号
+    "vue": "Vue",
+    "vue-router": "VueRouter",
+    "element-ui": "ELEMENT",
+    "axios": "axios",
+    "moment": "moment",
+    "echarts": "echarts"
+  },
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -27,9 +40,9 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'production' ?
+      config.build.assetsPublicPath :
+      config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
