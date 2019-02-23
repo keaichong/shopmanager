@@ -1,5 +1,6 @@
+// ????
 import Vue from 'vue'
-// import VueRouter from 'vue-router'
+import VueRouter from 'vue-router'
 import {
   Message
 } from 'element-ui';
@@ -150,7 +151,7 @@ router.beforeEach((to, from, next) => {
       console.log('我没有token');
       //  this.$router.push({name:'login'})
       // $router
-      this.$router.push({
+      router.push({
         name: 'login'
       })
       return;
