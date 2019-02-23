@@ -12,12 +12,12 @@
       :closable="false"
     ></el-alert>
 
-    <el-form :model="form"  label-position="left" label-width="120px">
+    <el-form :model="form" label-position="left" label-width="120px">
       <el-form-item label="请选择商品分类">
         <!--  级联选择selectedOptions装的是data里面的value 当selectedOptions和value一样 显示label值
          value	指定选项的值为选项对象的某个属性值
         label	指定选项标签为选项对象的某个属性值
-        options就是选项对象 -->
+        options就是选项对象-->
         <el-cascader
           :options="options"
           v-model="selectedOptions"
@@ -34,7 +34,14 @@
       <el-tab-pane name="1" label="动态参数">
         <el-button>添加动态参数</el-button>
         <!-- type	对应列的类型。如果设置了 selection 则显示多选框；如果设置了 index 则显示该行的索引（从 1 开始计算）；如果设置了 expand 则显示为一个可展开的按钮 -->
-        <el-table height="450px" border stripe :data="arrDy" style="width: 100%" @expand-change="fn">
+        <el-table
+          height="450px"
+          border
+          stripe
+          :data="arrDy"
+          style="width: 100%"
+          @expand-change="fn"
+        >
           <el-table-column type="expand" width="120">
             <template slot-scope="scope">
               <!-- 动态tag编辑 -->
@@ -144,7 +151,7 @@ export default {
       });
     },
     //添加tags
-    async handleInputConfirm() {
+    async handleInputConfirm(obj) {
       const inputValue = this.inputValue;
       //if输入框的值不是''空字符串 进入下面
       if (inputValue) {
@@ -159,6 +166,8 @@ export default {
             attr_vals: obj.attr_vals.join(",")
           }
         );
+        this.inputVisible = false;
+        this.inputValue = "";
       }
     },
     //切换tab
